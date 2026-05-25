@@ -5,61 +5,75 @@ using UnityEngine;
 public class animationStateController : MonoBehaviour
 {
     Animator animator;
-    PlayerMovement playerMovement; // Reference connection to your movement script
+    CharacterController botCharacterController;
 
-    int hashRunning;
-    int hashKicking;
-    int hashAccelerating;
+    private int[] runningHashes;
+    private int[] speedHashes;
+
+    private int hashKickingLower;
+    private int hashKickingUpper;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        // Automatically find the player movement component on this object
-        playerMovement = GetComponent<PlayerMovement>();
 
-        Debug.Log(animator);
-        hashRunning = Animator.StringToHash("isRunning");
-        hashKicking = Animator.StringToHash("isKicking");
-        hashAccelerating = Animator.StringToHash("isAccelerating");
+        // Grab the standard CharacterController component attached to the bot
+        botCharacterController = GetComponent<CharacterController>();
+
+        // Cache animator parameters to hit whatever naming convention you used
+        runningHashes = new int[] {
+            Animator.StringToHash("isRunning"),
+            Animator.StringToHash("IsRunning"),
+            Animator.StringToHash("running"),
+            Animator.StringToHash("Running")
+        };
+
+        speedHashes = new int[] {
+            Animator.StringToHash("speed"),
+            Animator.StringToHash("Speed")
+        };
+
+        hashKickingLower = Animator.StringToHash("isKicking");
+        hashKickingUpper = Animator.StringToHash("IsKicking");
     }
 
     void Update()
     {
-        bool isKicking = animator.GetBool(hashKicking);
-        bool isRunning = animator.GetBool(hashRunning);
+        if (animator == null) return;
 
-        bool forwardpressed = Input.GetKey(KeyCode.W);
-        bool spacepressed = Input.GetKey(KeyCode.Space);
+        // --- 1. Detect Movement Natively by Checking the Bot's Velocity Vector ---
+        // If the CharacterController is physically moving through space at all, or W is pressed, trigger running
+        bool isMoving = false;
 
-        // Read the sprinting state straight from the movement script 
-        if (playerMovement != null)
+        if (botCharacterController != null)
         {
-            animator.SetBool(hashAccelerating, playerMovement.IsSprinting);
+            // check horizontal velocity magnitude (ignores gravity falls)
+            Vector3 horizontalVelocity = new Vector3(botCharacterController.velocity.x, 0f, botCharacterController.velocity.z);
+            isMoving = horizontalVelocity.magnitude > 0.1f;
         }
 
-        if (spacepressed)
+        // Keep keyboard fallback active just in case
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
-            animator.SetBool(hashKicking, true);
+            isMoving = true;
         }
-        if (!spacepressed)
+
+        // --- 2. Track Kicking State via Keyboard Spacebar Fallback ---
+        bool isKicking = Input.GetKey(KeyCode.Space);
+
+        // --- 3. Push Clean Updates to the Animator State Machine ---
+        foreach (int hash in runningHashes)
         {
-            animator.SetBool(hashKicking, false);
+            try { animator.SetBool(hash, isMoving); } catch { }
         }
-        if (!isRunning && forwardpressed)
+
+        float blendTreeSpeed = isMoving ? 1.0f : 0.0f;
+        foreach (int hash in speedHashes)
         {
-            animator.SetBool(hashRunning, true);
+            try { animator.SetFloat(hash, blendTreeSpeed); } catch { }
         }
-        if (isRunning && !forwardpressed)
-        {
-            animator.SetBool(hashRunning, false);
-        }
-        if (!isKicking && (isRunning && spacepressed))
-        {
-            animator.SetBool(hashKicking, true);
-        }
-        if (isRunning && !spacepressed)
-        {
-            animator.SetBool(hashKicking, false);
-        }
+
+        animator.SetBool(hashKickingLower, isKicking);
+        animator.SetBool(hashKickingUpper, isKicking);
     }
 }
