@@ -64,8 +64,8 @@
     <Compile Include="Assets\Samples\XR Hands\1.4.3\Gestures\Debug Tools\Scripts\XRFingerShapeDebugUI.cs" />
     <Compile Include="Assets\Samples\XR Hands\1.4.3\Gestures\Debug Tools\Scripts\XRSelectedHandShapeDebugUI.cs" />
     <Compile Include="Assets\Samples\XR Hands\1.4.3\Gestures\Debug Tools\Scripts\XRHandShapeDebugUI.cs" />
-    <Compile Include="Assets\Samples\XR Hands\1.4.3\Gestures\Debug Tools\Scripts\XRFingerShapeDebugBar.cs" />
     <Compile Include="Assets\Samples\XR Hands\1.4.3\Gestures\Debug Tools\Scripts\XRAllFingerShapesDebugUI.cs" />
+    <Compile Include="Assets\Samples\XR Hands\1.4.3\Gestures\Debug Tools\Scripts\XRFingerShapeDebugBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Samples\XR Hands\1.4.3\Gestures\Unity.XR.Hands.Samples.Gestures.asmdef" />

@@ -4,10 +4,17 @@ using TMPro; // Use this if you're using TextMeshPro
 public class GoalDetector : MonoBehaviour
 {
     public GameObject goalTextUI; // Drag your 'Goal!' text object here in the Inspector
+    private GameManager gameManager;
+
     void Start()
     {
+        gameManager = Object.FindFirstObjectByType<GameManager>();
+
         // This makes sure the "Goal!" text is hidden the second the game runs
-        goalTextUI.SetActive(false);
+        if (goalTextUI != null)
+        {
+            goalTextUI.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -18,14 +25,30 @@ public class GoalDetector : MonoBehaviour
         if (other.CompareTag("Ball"))
         {
             Debug.Log("The Ball tag was detected!");
-            goalTextUI.SetActive(true);
-            Invoke("HideGoalText", 3f);
+
+            if (gameManager != null)
+            {
+                GameObject scoredBall = other.attachedRigidbody != null
+                    ? other.attachedRigidbody.gameObject
+                    : other.gameObject;
+
+                gameManager.GoalScored(scoredBall);
+            }
+
+            if (goalTextUI != null)
+            {
+                goalTextUI.SetActive(true);
+                Invoke(nameof(HideGoalText), 3f);
+            }
         }
     }
 
 
     void HideGoalText()
     {
-        goalTextUI.SetActive(false);
+        if (goalTextUI != null)
+        {
+            goalTextUI.SetActive(false);
+        }
     }
 }

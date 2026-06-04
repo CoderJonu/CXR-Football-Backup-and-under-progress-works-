@@ -60,71 +60,89 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Course Library\Scripts\Actions\PlaySoundsFromList.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\ShowMessageFromList.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\LaunchProjectile.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\SetLightIntensity.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\StickToObject.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Conditions\OnSceneLoad.cs" />
     <Compile Include="Assets\Scripts\PCComponents\FloatingUIController.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\ChangeMaterial.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\MatchRotation.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\LoadScene.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetVolume.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
-    <Compile Include="Assets\Scripts\Assembly\SimpleRotator.cs" />
     <Compile Include="Assets\VRFootKick.cs" />
-    <Compile Include="Assets\Scripts\PCComponents\PCComponentMetadata.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleInterface.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\animationStateController.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleLight.cs" />
+    <Compile Include="Assets\FollowController.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnJoystickMove.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\FadeCanvasOnOverlap.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Conditions\OnTimedInterval.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Conditions\OnCollision.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\ApplyPhysics.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Testing\DisplayFPS.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\PlayVideo.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\RotateObject.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\GoaliePatrol.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleVisibility.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetParticleRate.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\PlayQuickSound.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\BallTrailer.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+    <Compile Include="Assets\PlayerMovement.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Cube.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Conditions\OnButtonPress.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\SpawnObject.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\DestroyObject.cs" />
+    <Compile Include="Assets\BallTrailController.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\LockCameraToSpine.cs" />
+    <Compile Include="Assets\ball.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\SpawnPooledObjects.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleParticle.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Testing\Notes.cs" />
+    <Compile Include="Assets\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Assembly\PartHighlighter.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\SetMaterialColor.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\CreateTrail.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\PlaySoundsFromList.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\ShowMessageFromList.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\SetLightIntensity.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Conditions\OnSceneLoad.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\ChangeMaterial.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\MatchRotation.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\LoadScene.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\Scripts\Assembly\SimpleRotator.cs" />
+    <Compile Include="Assets\Scripts\PCComponents\PCComponentMetadata.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\FadeCanvasOnOverlap.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Conditions\OnTimedInterval.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Conditions\OnCollision.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\ApplyPhysics.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\PlayVideo.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\PlayQuickSound.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnTrigger.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\PlayContinuousSound.cs" />
-    <Compile Include="Assets\BallTrailer.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
-    <Compile Include="Assets\PlayerMovement.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\PlayAnimation.cs" />
+    <Compile Include="Assets\FollowTracker.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\VibrateController.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\LookAtPlayer.cs" />
     <Compile Include="Assets\Scripts\PCComponents\PCComponentData.cs" />
     <Compile Include="Assets\GoalDetector.cs" />
     <Compile Include="Assets\Scripts\Assembly\MixedRealityConfigurator.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Conditions\OnButtonPress.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\FadeCanvas.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetLightColor.cs" />
@@ -134,25 +152,12 @@
     <Compile Include="Assets\fuckall.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\playerController.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\SpawnObject.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SpawnFromList.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\DestroyObject.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\TranslateObject.cs" />
-    <Compile Include="Assets\BallTrailController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
-    <Compile Include="Assets\LockCameraToSpine.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
-    <Compile Include="Assets\ball.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\SpawnPooledObjects.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleParticle.cs" />
-    <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ConvertValueToHue.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Testing\Notes.cs" />
-    <Compile Include="Assets\Scripts\Assembly\PartHighlighter.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\SetMaterialColor.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\CreateTrail.cs" />
-    <Compile Include="Assets\_Course Library\Scripts\Actions\RemoveObjectsWithTag.cs" />
     <Compile Include="Assets\Scripts\Assembly\AssemblyUIBinder.cs" />
+    <Compile Include="Assets\_Course Library\Scripts\Actions\RemoveObjectsWithTag.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1146,6 +1151,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.XR.OpenXR.Features.OculusQuestSupport.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.XR.Oculus.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.Oculus.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.XR.Interaction.Toolkit">
       <HintPath>Library\ScriptAssemblies\Unity.XR.Interaction.Toolkit.dll</HintPath>
       <Private>False</Private>
@@ -1220,6 +1229,10 @@
     </Reference>
     <Reference Include="Unity.InputSystem.ForUI">
       <HintPath>Library\ScriptAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.XR.Oculus">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.Oculus.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">

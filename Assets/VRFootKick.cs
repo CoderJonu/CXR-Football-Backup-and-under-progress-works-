@@ -27,7 +27,7 @@ public class VRFootKick : MonoBehaviour
 
         // Desired foot position
         Vector3 targetPosition =
-            leftController.position + initialOffset;
+            leftController.position;
 
         // Smooth follow
         transform.position = Vector3.Lerp(

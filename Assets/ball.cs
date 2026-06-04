@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class ball : MonoBehaviour
 {
@@ -55,5 +55,65 @@ public class ball : MonoBehaviour
         }
         transform.position = spawnPosition;
         Debug.Log("Ball went out of bounds! Resetting to kick-off center.");
+    }
+}
+*/
+using UnityEngine;
+
+public class ball : MonoBehaviour
+{
+    [Header("Realistic Grass Physics")]
+    public float grassFriction = 0.6f;
+
+    [Header("Boundary Reset Settings")]
+    public float resetHeightLimit = -5f;
+
+    private Rigidbody rb;
+    private GameManager gameManager;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        // Automatically find the game manager in the scene
+        gameManager = Object.FindFirstObjectByType<GameManager>();
+
+        if (rb != null)
+        {
+            rb.mass = 1.0f;
+            rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (rb != null && rb.velocity.magnitude > 0.05f)
+        {
+            Vector3 frictionForce = -rb.velocity * grassFriction;
+            rb.AddForce(frictionForce, ForceMode.Acceleration);
+        }
+
+        if (transform.position.y < resetHeightLimit)
+        {
+            ResetBall();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "goal")
+        {
+            if (gameManager != null)
+            {
+                gameManager.GoalScored(gameObject); // Alert manager to change scores
+            }
+        }
+    }
+
+    void ResetBall()
+    {
+        if (gameManager != null)
+        {
+            gameManager.RespawnNewBall(gameObject);
+        }
     }
 }
