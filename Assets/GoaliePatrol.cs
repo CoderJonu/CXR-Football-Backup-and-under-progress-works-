@@ -13,6 +13,7 @@ public class GoaliePatrol : MonoBehaviour
     [Header("Goal Reference")]
     public Transform goalPost;
     public PatrolAxis patrolAxis = PatrolAxis.GoalLocalX;
+    public bool preferGoalInSameRoom = true;
     public float fallbackGoalWidth = 4f;
     public float postPadding = 0.35f;
     public float goalieRadius = 0.45f;
@@ -40,6 +41,9 @@ public class GoaliePatrol : MonoBehaviour
         if (animator == null)
             animator = GetComponent<Animator>();
 
+        if (preferGoalInSameRoom)
+            goalPost = ResolveGoalPostForThisRoom();
+
         centerPosition = goalPost != null ? goalPost.position : transform.position;
         centerPosition.y = transform.position.y;
 
@@ -48,6 +52,23 @@ public class GoaliePatrol : MonoBehaviour
         direction = startMovingRight ? 1 : -1;
 
         ConfigureAnimator();
+    }
+
+    Transform ResolveGoalPostForThisRoom()
+    {
+        Transform roomRoot = transform.root;
+
+        if (goalPost != null && goalPost.root == roomRoot)
+            return goalPost;
+
+        foreach (Transform child in roomRoot.GetComponentsInChildren<Transform>(true))
+        {
+            string lowerName = child.name.ToLowerInvariant();
+            if (lowerName == "goal" || lowerName.Contains("goalpost") || lowerName.Contains("goal post"))
+                return child;
+        }
+
+        return goalPost;
     }
 
     void Update()

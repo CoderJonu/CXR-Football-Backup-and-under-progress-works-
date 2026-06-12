@@ -26,22 +26,24 @@ public class PlayerMovement : MonoBehaviour
     public float kickUpwardForce = 3.5f;
     public float softDribblePower = 3.0f;
 
+    [Header("Input Settings")]
+    public bool invertJoystickForward = false;
+    public float joystickDeadzone = 0.15f;
+
     private Vector3 currentVelocity;
     private Vector3 verticalVelocity;
     private Vector3 lastFootPosition;
     private float physicalFootSpeed;
+    private GameManager gameManager;
 
-    // VR Controller Inputs
     public InputAction rawRightThumbstick;
     public InputAction rawRightTrigger;
 
-    // Animation States
     public bool IsPhysicallyMoving { get; private set; }
     public bool IsVrKicking { get; private set; }
 
-    private void Awake()
+    void Awake()
     {
-        // RIGHT CONTROLLER INPUTS
         rawRightThumbstick = new InputAction(
             "RightStick",
             InputActionType.Value,
@@ -55,13 +57,13 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         rawRightThumbstick.Enable();
         rawRightTrigger.Enable();
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         rawRightThumbstick.Disable();
         rawRightTrigger.Disable();
@@ -69,53 +71,35 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        if (controller == null)
+        if (controller == null || controller.gameObject != gameObject)
             controller = GetComponent<CharacterController>();
 
         if (anim == null)
             anim = GetComponent<Animator>();
 
         if (rightFootController != null)
-        {
             lastFootPosition = rightFootController.position;
-        }
+
+        gameManager = Object.FindFirstObjectByType<GameManager>();
     }
 
     void Update()
     {
-        // ------------------------------------------------
-        // FOOT SPEED TRACKING
-        // ------------------------------------------------
-        if (rightFootController != null && Time.deltaTime > 0)
+        if (rightFootController != null && Time.deltaTime > 0f)
         {
-            Vector3 footDisplacement =
-                rightFootController.position - lastFootPosition;
-
-            physicalFootSpeed =
-                footDisplacement.magnitude / Time.deltaTime;
-
+            Vector3 footDisplacement = rightFootController.position - lastFootPosition;
+            physicalFootSpeed = footDisplacement.magnitude / Time.deltaTime;
             lastFootPosition = rightFootController.position;
         }
 
-        // ------------------------------------------------
-        // READ VR INPUTS
-        // ------------------------------------------------
-        Vector2 rightJoystick =
-            rawRightThumbstick.ReadValue<Vector2>();
-
+        Vector2 rightJoystick = rawRightThumbstick.ReadValue<Vector2>();
         IsVrKicking = rawRightTrigger.IsPressed();
 
-        // ------------------------------------------------
-        // INPUT VARIABLES
-        // ------------------------------------------------
-        float forwardInput = rightJoystick.y;
-        float turnInput = rightJoystick.x;
-
+        float forwardInput = ApplyDeadzone(invertJoystickForward ? -rightJoystick.y : rightJoystick.y);
+        float turnInput = ApplyDeadzone(rightJoystick.x);
         bool keyboardMoving = false;
 
-        // ------------------------------------------------
-        // KEYBOARD FALLBACKS
-        // ------------------------------------------------
+        // Keyboard fallback
         if (Input.GetKey(KeyCode.W))
         {
             forwardInput = 1f;
@@ -140,36 +124,19 @@ public class PlayerMovement : MonoBehaviour
             keyboardMoving = true;
         }
 
-        // ------------------------------------------------
-        // MOVEMENT DETECTION
-        // ------------------------------------------------
-        IsPhysicallyMoving =
-            (rightJoystick.magnitude > 0.15f) || keyboardMoving;
+        IsPhysicallyMoving = Mathf.Abs(forwardInput) > 0f || Mathf.Abs(turnInput) > 0f || keyboardMoving;
 
-        // ------------------------------------------------
-        // ANIMATION CONTROL
-        // ------------------------------------------------
-        anim.SetBool("isRunning", IsPhysicallyMoving);
-
-        if (IsVrKicking || Input.GetKeyDown(KeyCode.Space))
+        if (anim != null)
         {
-            anim.SetTrigger("isKicking");
+            anim.SetBool("isRunning", IsPhysicallyMoving);
+
+            if (IsVrKicking || Input.GetKeyDown(KeyCode.Space))
+                anim.SetTrigger("isKicking");
         }
 
-        // ------------------------------------------------
-        // PLAYER ROTATION
-        // ------------------------------------------------
-        transform.Rotate(
-            0,
-            turnInput * rotationSpeed * Time.deltaTime,
-            0
-        );
+        transform.Rotate(0f, turnInput * rotationSpeed * Time.deltaTime, 0f);
 
-        // ------------------------------------------------
-        // PLAYER MOVEMENT
-        // ------------------------------------------------
-        Vector3 targetDirection =
-            transform.forward * forwardInput;
+        Vector3 targetDirection = transform.forward * forwardInput;
 
         if (targetDirection.magnitude > 0.05f)
         {
@@ -188,82 +155,70 @@ public class PlayerMovement : MonoBehaviour
             );
         }
 
-        controller.Move(currentVelocity * Time.deltaTime);
+        controller.Move(
+            currentVelocity * Time.deltaTime
+        );
 
-        // ------------------------------------------------
-        // GRAVITY
-        // ------------------------------------------------
-        if (controller.isGrounded && verticalVelocity.y < 0)
+        if (controller.isGrounded &&
+            verticalVelocity.y < 0)
         {
             verticalVelocity.y = -2f;
         }
 
-        verticalVelocity.y += gravity * Time.deltaTime;
+        verticalVelocity.y +=
+            gravity * Time.deltaTime;
 
-        controller.Move(verticalVelocity * Time.deltaTime);
+        controller.Move(
+            verticalVelocity * Time.deltaTime
+        );
+    }
+
+    float ApplyDeadzone(float value)
+    {
+        return Mathf.Abs(value) < joystickDeadzone ? 0f : value;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (
-            !hit.gameObject.name.ToLower().Contains("ball")
-            && hit.collider.attachedRigidbody == null
-        )
+        if (!hit.gameObject.name.ToLower().Contains("ball") && hit.collider.attachedRigidbody == null)
             return;
 
         Rigidbody ballBody = hit.collider.attachedRigidbody;
 
-        if (ballBody != null && !ballBody.isKinematic)
+        if (ballBody == null || ballBody.isKinematic)
+            return;
+
+        ballBody.velocity = Vector3.zero;
+        ballBody.angularVelocity = Vector3.zero;
+
+        Vector3 pushDir = transform.forward;
+        bool isIntentionalKick = IsVrKicking
+            || Input.GetKey(KeyCode.Space)
+            || physicalFootSpeed > kickVelocityThreshold;
+
+        if (isIntentionalKick)
         {
-            // RESET BALL VELOCITY
-            ballBody.velocity = Vector3.zero;
-            ballBody.angularVelocity = Vector3.zero;
+            if (gameManager != null)
+                gameManager.RegisterShot(ballBody.gameObject);
 
-            Vector3 pushDir = transform.forward;
+            pushDir.y = kickUpwardForce / maxKickPower;
 
-            bool isIntentionalKick =
-                IsVrKicking
-                || Input.GetKey(KeyCode.Space)
-                || (physicalFootSpeed > kickVelocityThreshold);
+            float calculatedPower = Mathf.Clamp(
+                physicalFootSpeed * 2.5f,
+                softDribblePower,
+                maxKickPower
+            );
 
-            // ------------------------------------------------
-            // POWER KICK
-            // ------------------------------------------------
-            if (isIntentionalKick)
-            {
-                pushDir.y = kickUpwardForce / maxKickPower;
+            if (IsVrKicking || Input.GetKey(KeyCode.Space))
+                calculatedPower = maxKickPower;
 
-                float calculatedPower = Mathf.Clamp(
-                    physicalFootSpeed * 2.5f,
-                    softDribblePower,
-                    maxKickPower
-                );
-
-                if (IsVrKicking || Input.GetKey(KeyCode.Space))
-                {
-                    calculatedPower = maxKickPower;
-                }
-
-                ballBody.AddForce(
-                    pushDir.normalized * calculatedPower,
-                    ForceMode.Impulse
-                );
-
-                Debug.Log("VR Kick Executed!");
-            }
-
-            // ------------------------------------------------
-            // SOFT DRIBBLE
-            // ------------------------------------------------
-            else
-            {
-                pushDir.y = 0f;
-
-                ballBody.AddForce(
-                    pushDir.normalized * softDribblePower,
-                    ForceMode.Impulse
-                );
-            }
+            ballBody.AddForce(pushDir.normalized * calculatedPower, ForceMode.Impulse);
+            Debug.Log("VR Kick Executed!");
+        }
+        else
+        {
+            pushDir.y = 0f;
+            ballBody.AddForce(pushDir.normalized * softDribblePower, ForceMode.Impulse);
         }
     }
 }

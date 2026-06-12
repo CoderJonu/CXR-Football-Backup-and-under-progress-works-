@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI goalsLeftText;
     public TextMeshProUGUI resultText;
+    public TextMeshProUGUI accuracyText;
 
     [Header("Match Settings")]
     public GameObject ballPrefab; // Put your clean ball asset template here
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     private float timeRemaining = MatchDuration;
     private int goalsRemaining = GoalsToWin;
+    private int shotsTaken = 0;
+    private int goalsScored = 0;
     private bool isGameOver = false;
     private bool isSpawningBall = false;
     private GameObject currentBall;
@@ -60,6 +63,7 @@ public class GameManager : MonoBehaviour
 
         RemoveBall(scoredBall);
 
+        goalsScored++;
         goalsRemaining--; // Reduce targets left
         UpdateUIDisplays();
 
@@ -73,6 +77,22 @@ public class GameManager : MonoBehaviour
             isSpawningBall = true;
             Invoke(nameof(SpawnFreshBall), 0.5f);
         }
+    }
+
+    public void RegisterShot(GameObject shotBall)
+    {
+        if (isGameOver || shotBall == null)
+            return;
+
+        ball trackedBall = shotBall.GetComponent<ball>();
+        if (trackedBall != null && trackedBall.HasRegisteredShot)
+            return;
+
+        if (trackedBall != null)
+            trackedBall.HasRegisteredShot = true;
+
+        shotsTaken++;
+        UpdateUIDisplays();
     }
 
     void SpawnFreshBall()
@@ -120,6 +140,23 @@ public class GameManager : MonoBehaviour
 
         if (goalsLeftText != null)
             goalsLeftText.text = "Goals Needed: " + goalsRemaining;
+
+        if (accuracyText == null)
+            accuracyText = CreateAccuracyText();
+
+        if (accuracyText != null)
+        {
+            float accuracy = shotsTaken > 0
+                ? (goalsScored / (float)shotsTaken) * 100f
+                : 0f;
+
+            accuracyText.text = string.Format(
+                "Shots: {0}  Goals: {1}  Accuracy: {2:0}%",
+                shotsTaken,
+                goalsScored,
+                accuracy
+            );
+        }
     }
 
     void EndGame(bool playerWon)
@@ -131,13 +168,28 @@ public class GameManager : MonoBehaviour
         if (playerWon)
         {
             Debug.Log("VICTORY! You scored 10 goals in time.");
-            ShowResult("YOU WON!");
+            ShowResult(BuildResultMessage("YOU WON!"));
         }
         else
         {
             Debug.Log("GAME OVER! Time ran out.");
-            ShowResult("YOU LOSE!");
+            ShowResult(BuildResultMessage("YOU LOSE!"));
         }
+    }
+
+    string BuildResultMessage(string result)
+    {
+        float accuracy = shotsTaken > 0
+            ? (goalsScored / (float)shotsTaken) * 100f
+            : 0f;
+
+        return string.Format(
+            "{0}\nShots: {1}  Goals: {2}  Accuracy: {3:0}%",
+            result,
+            shotsTaken,
+            goalsScored,
+            accuracy
+        );
     }
 
     void ShowResult(string message)
@@ -171,6 +223,29 @@ public class GameManager : MonoBehaviour
         rect.anchorMax = new Vector2(0.5f, 0.5f);
         rect.anchoredPosition = Vector2.zero;
         rect.sizeDelta = new Vector2(1.1f, 0.35f);
+
+        return text;
+    }
+
+    TextMeshProUGUI CreateAccuracyText()
+    {
+        Canvas canvas = Object.FindFirstObjectByType<Canvas>();
+        if (canvas == null)
+            return null;
+
+        GameObject accuracyObject = new GameObject("AccuracyText");
+        accuracyObject.transform.SetParent(canvas.transform, false);
+
+        TextMeshProUGUI text = accuracyObject.AddComponent<TextMeshProUGUI>();
+        text.alignment = TextAlignmentOptions.Center;
+        text.fontSize = 0.07f;
+        text.color = Color.black;
+
+        RectTransform rect = text.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = new Vector2(0f, 0.18f);
+        rect.sizeDelta = new Vector2(1.4f, 0.14f);
 
         return text;
     }

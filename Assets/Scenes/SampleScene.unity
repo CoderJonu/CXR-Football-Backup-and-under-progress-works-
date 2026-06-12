@@ -498,9 +498,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botHeadBone: {fileID: 227284608}
+  bodyFollowTarget: {fileID: 554178525}
   heightOffset: 0
   flipForwardDirection: 1
   yawOffsetDegrees: 45
+  lockRotationToBody: 0
+  useStableBodyPosition: 1
 --- !u!114 &348982432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,7 +511,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 348982419}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bca5eaec66b2724e825662e20b26a29, type: 3}
   m_Name: 
@@ -525,6 +528,8 @@ MonoBehaviour:
   maxKickPower: 12
   kickUpwardForce: 3.5
   softDribblePower: 3
+  invertJoystickForward: 0
+  joystickDeadzone: 0.15
   rawRightThumbstick:
     m_Name: 
     m_Type: 0
@@ -550,7 +555,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 348982419}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bf296fc962d7184ab14ad1841598d5f, type: 3}
   m_Name: 
@@ -1048,7 +1053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bca5eaec66b2724e825662e20b26a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 348982425}
+  controller: {fileID: 554178520}
   anim: {fileID: 554178511}
   rightFootController: {fileID: 0}
   kickVelocityThreshold: 1.8
@@ -1060,6 +1065,8 @@ MonoBehaviour:
   maxKickPower: 12
   kickUpwardForce: 3.5
   softDribblePower: 3
+  invertJoystickForward: 0
+  joystickDeadzone: 0.15
   rawRightThumbstick:
     m_Name: Raw Right Thumbstick
     m_Type: 0

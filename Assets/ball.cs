@@ -71,6 +71,8 @@ public class ball : MonoBehaviour
     private Rigidbody rb;
     private GameManager gameManager;
 
+    public bool HasRegisteredShot { get; set; }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
