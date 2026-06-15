@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Settings")]
     public float walkSpeed = 5f;
     public float rotationSpeed = 150f;
+    public float turnAcceleration = 360f;
     public float gravity = -9.81f;
 
     [Header("Bot Breaking Friction")]
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 verticalVelocity;
     private Vector3 lastFootPosition;
     private float physicalFootSpeed;
+    private float currentTurnSpeed;
     private GameManager gameManager;
 
     public InputAction rawRightThumbstick;
@@ -73,6 +75,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (controller == null || controller.gameObject != gameObject)
             controller = GetComponent<CharacterController>();
+
+        PlayerController legacyController = GetComponent<PlayerController>();
+        if (legacyController != null)
+            legacyController.enabled = false;
 
         if (anim == null)
             anim = GetComponent<Animator>();
@@ -124,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
             keyboardMoving = true;
         }
 
-        IsPhysicallyMoving = Mathf.Abs(forwardInput) > 0f || Mathf.Abs(turnInput) > 0f || keyboardMoving;
+        IsPhysicallyMoving = Mathf.Abs(forwardInput) > 0f;
 
         if (anim != null)
         {
@@ -134,7 +140,13 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetTrigger("isKicking");
         }
 
-        transform.Rotate(0f, turnInput * rotationSpeed * Time.deltaTime, 0f);
+        float targetTurnSpeed = turnInput * rotationSpeed;
+        currentTurnSpeed = Mathf.MoveTowards(
+            currentTurnSpeed,
+            targetTurnSpeed,
+            turnAcceleration * Time.deltaTime
+        );
+        transform.Rotate(0f, currentTurnSpeed * Time.deltaTime, 0f);
 
         Vector3 targetDirection = transform.forward * forwardInput;
 
