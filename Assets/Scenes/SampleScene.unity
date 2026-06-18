@@ -803,7 +803,7 @@ GameObject:
   - component: {fileID: 200774101}
   - component: {fileID: 200774102}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: nGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -833,15 +833,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 200774100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f0d41210443a5b4fa5a483d7211477c, type: 3}
+  m_Script: {fileID: 11500000, guid: 923f1cd787be89949b24b174c03fb8f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText: {fileID: 1386145108}
-  goalsLeftText: {fileID: 1343196506}
+  timerText: {fileID: 0}
+  goalsLeftText: {fileID: 0}
   resultText: {fileID: 0}
   accuracyText: {fileID: 0}
   ballPrefab: {fileID: 3437825152090215401, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
-  kickOffPosition: {x: 0, y: 0, z: 0}
+  spawnPoint: {fileID: 1086733646}
 --- !u!4 &211883675 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9014170783728641054, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
@@ -2715,24 +2715,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 1573352967}
     m_Modifications:
     - target: {fileID: 1592627783501816922, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
-      propertyPath: eastBoundary
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1592627783501816922, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
-      propertyPath: westBoundary
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1592627783501816922, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
-      propertyPath: northBoundary
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1592627783501816922, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
-      propertyPath: southBoundary
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1592627783501816922, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
-      propertyPath: useAutomaticTurfBounds
-      value: 1
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2953042683619061305, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2778,10 +2762,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Football
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3437825152090215401, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
+      propertyPath: m_TagString
+      value: nBall
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1592627783501816922, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3437825152090215401, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1565941774}
   m_SourcePrefab: {fileID: 100100000, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
 --- !u!1 &781433281 stripped
 GameObject:
@@ -3432,6 +3424,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!1 &1086733645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1086733646}
+  m_Layer: 0
+  m_Name: Spwan point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1086733646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086733645}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -64.69, y: -9.34, z: -62.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1573352967}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1123944840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5465940246521907071, guid: 3c259f47eec2c764f971737a9b11c940, type: 3}
@@ -5865,6 +5888,25 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1478384983}
   m_SourcePrefab: {fileID: 100100000, guid: 4129d15c26268e346850aa13ddbedeef, type: 3}
+--- !u!1 &1565941773 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3437825152090215401, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
+  m_PrefabInstance: {fileID: 761165889}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1565941774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565941773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc911831434cdaf42a3a0a1c3e92b244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassFriction: 0.6
+  resetHeightLimit: -5
 --- !u!1 &1573352966
 GameObject:
   m_ObjectHideFlags: 0
@@ -5902,6 +5944,7 @@ Transform:
   - {fileID: 1154704538}
   - {fileID: 1439807216}
   - {fileID: 738875433}
+  - {fileID: 1086733646}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1577278414 stripped
@@ -6486,7 +6529,7 @@ GameObject:
   - component: {fileID: 1765832484}
   - component: {fileID: 1765832483}
   - component: {fileID: 1765832482}
-  - component: {fileID: 1765832481}
+  - component: {fileID: 1765832486}
   m_Layer: 0
   m_Name: goal
   m_TagString: Untagged
@@ -6509,19 +6552,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1573352967}
   m_LocalEulerAnglesHint: {x: 0, y: 0.035, z: 0}
---- !u!114 &1765832481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1765832479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a0f92f66d1432843bca8859ef371cb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goalTextUI: {fileID: 1173933741}
 --- !u!54 &1765832482
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6620,6 +6650,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765832479}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1765832486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765832479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94702e6c87f506845a4f410260bdee57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goalTextUI: {fileID: 0}
 --- !u!1001 &1779286927
 PrefabInstance:
   m_ObjectHideFlags: 0

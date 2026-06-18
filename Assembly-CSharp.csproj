@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{186EF153-8512-D6C9-F132-058F6F4BF229}</ProjectGuid>
+    <ProjectGuid>{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -55,7 +55,7 @@
     <UnityVersion>2022.3.62f3</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -70,6 +70,7 @@
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleInterface.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\animationStateController.cs" />
+    <Compile Include="Assets\nBall.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ToggleLight.cs" />
     <Compile Include="Assets\FollowController.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnJoystickMove.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Assets\PlayerMovement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Conditions\OnButtonPress.cs" />
+    <Compile Include="Assets\nGameManager.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SpawnObject.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\DestroyObject.cs" />
     <Compile Include="Assets\BallTrailController.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Assets\Scripts\Assembly\PartHighlighter.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetMaterialColor.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\CreateTrail.cs" />
+    <Compile Include="Assets\nGoalDetector.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\PlaySoundsFromList.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\ShowMessageFromList.cs" />
     <Compile Include="Assets\_Course Library\Scripts\Actions\SetLightIntensity.cs" />
@@ -531,18 +534,6 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.4\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.Types">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.Gradle">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.GradleProject">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.GradleProject.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
@@ -1284,27 +1275,27 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.Editor.csproj">
-      <Project>{CAE210CC-2F4F-B74C-AD00-DAB68BA92428}</Project>
+      <Project>{3200AE2C-0DE5-B73D-C877-3AD79881AE8D}</Project>
       <Name>Unity.XR.Interaction.Toolkit.Samples.StarterAssets.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.Management.Samples.Editor.csproj">
-      <Project>{3C59427C-D5EC-48B9-B33A-8AB57F4F378D}</Project>
+      <Project>{3FFE3CA1-4F48-B4E3-2AD9-7C79C5591532}</Project>
       <Name>Unity.XR.Management.Samples.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.Hands.Samples.Gestures.csproj">
-      <Project>{63FD3355-E445-01ED-A54D-B6B761CCFAD3}</Project>
+      <Project>{D3987B5C-3D0C-7DD2-95AB-645D1E4F83CB}</Project>
       <Name>Unity.XR.Hands.Samples.Gestures</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.Hands.Samples.VisualizerSample.csproj">
-      <Project>{58E0A4AC-1121-D06C-D287-78A4AC4851CD}</Project>
+      <Project>{3D47A046-19F1-EF18-C930-12B479D3CB53}</Project>
       <Name>Unity.XR.Hands.Samples.VisualizerSample</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.Management.Samples.csproj">
-      <Project>{C4069F82-3005-5ED6-A240-63DBB87BBCEF}</Project>
+      <Project>{06EEA1F2-CD0D-2C51-761E-EDCD1D1A1858}</Project>
       <Name>Unity.XR.Management.Samples</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.csproj">
-      <Project>{4F4211D4-B4C3-3A11-0BA4-A4252E6E2C52}</Project>
+      <Project>{DF8D3C1F-7F96-3D7F-BA4C-F572802107A1}</Project>
       <Name>Unity.XR.Interaction.Toolkit.Samples.StarterAssets</Name>
     </ProjectReference>
   </ItemGroup>
