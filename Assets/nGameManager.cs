@@ -73,6 +73,9 @@ public class nGameManager : MonoBehaviour
         goalsScored++;
         goalsRemaining--;
 
+        Debug.Log("Goals Remaining: " + goalsRemaining);
+        Debug.Log("Goals Scored: " + goalsScored);
+
         UpdateUIDisplays();
 
         if (goalsRemaining <= 0)

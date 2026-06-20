@@ -25,7 +25,7 @@ public class nGoalDetector : MonoBehaviour
 
         if (other.CompareTag("nBall"))
         {
-            Debug.Log("The Ball tag was detected!");
+            Debug.Log("GOAL SCORED!");
 
             if (gameManager != null)
             {
@@ -34,12 +34,23 @@ public class nGoalDetector : MonoBehaviour
                     : other.gameObject;
 
                 gameManager.GoalScored(scoredBall);
+
+                Debug.Log("GoalScored() called successfully.");
             }
 
             if (goalTextUI != null)
             {
+                Debug.Log("Displaying GOAL text.");
+
                 goalTextUI.SetActive(true);
-                Invoke(nameof(HideGoalText), 3f);
+                goalTextUI.SetActive(true);
+                Debug.Log("Goal text active state: " + goalTextUI.activeSelf);
+
+                Invoke(nameof(HideGoalText), 5f);
+            }
+            else
+            {
+                Debug.LogWarning("goalTextUI is NOT assigned!");
             }
         }
     }

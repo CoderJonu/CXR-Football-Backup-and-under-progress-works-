@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "D:\\CXR\\NEW\\CXR-Football-Updated\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|D:\\CXR\\NEW\\CXR-Football-Updated\\assets\\ngamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|d:\\cxr\\new\\cxr-football-updated\\assets\\ngamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|solutionrelative:assets\\ngamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|D:\\CXR\\NEW\\CXR-Football-Updated\\assets\\ngoaldetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|solutionrelative:assets\\ngoaldetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|D:\\CXR\\NEW\\CXR-Football-Updated\\assets\\nball.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|solutionrelative:assets\\nball.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|d:\\cxr\\new\\cxr-football-updated\\assets\\ngoaldetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|solutionrelative:assets\\ngoaldetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|D:\\CXR\\NEW\\CXR-Football-Updated\\assets\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,7 +23,7 @@
       "RelativeMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|solutionrelative:assets\\ball.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|d:\\cxr\\new\\cxr-football-updated\\assets\\goaldetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|D:\\CXR\\NEW\\CXR-Football-Updated\\assets\\goaldetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C673FD29-C9B7-6EE6-A7EF-464AF2F7CC4E}|Assembly-CSharp.csproj|solutionrelative:assets\\goaldetector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -34,17 +34,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "nGoalDetector.cs",
               "DocumentMoniker": "D:\\CXR\\NEW\\CXR-Football-Updated\\Assets\\nGoalDetector.cs",
               "RelativeDocumentMoniker": "Assets\\nGoalDetector.cs",
               "ToolTip": "D:\\CXR\\NEW\\CXR-Football-Updated\\Assets\\nGoalDetector.cs",
               "RelativeToolTip": "Assets\\nGoalDetector.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAcwDcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAYwDIAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-18T05:24:45.971Z",
               "EditorCaption": ""
@@ -59,18 +63,17 @@
               "RelativeToolTip": "Assets\\GoalDetector.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-18T05:24:08.691Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-18T05:24:08.691Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "nBall.cs",
               "DocumentMoniker": "D:\\CXR\\NEW\\CXR-Football-Updated\\Assets\\nBall.cs",
               "RelativeDocumentMoniker": "Assets\\nBall.cs",
               "ToolTip": "D:\\CXR\\NEW\\CXR-Football-Updated\\Assets\\nBall.cs",
               "RelativeToolTip": "Assets\\nBall.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAUwDEAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-18T05:05:52.236Z",
               "EditorCaption": ""
@@ -85,8 +88,7 @@
               "RelativeToolTip": "Assets\\ball.cs",
               "ViewState": "AgIAAGIAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-18T05:04:55.726Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-18T05:04:55.726Z"
             },
             {
               "$type": "Document",
@@ -96,7 +98,7 @@
               "RelativeDocumentMoniker": "Assets\\nGameManager.cs",
               "ToolTip": "D:\\CXR\\NEW\\CXR-Football-Updated\\Assets\\nGameManager.cs",
               "RelativeToolTip": "Assets\\nGameManager.cs",
-              "ViewState": "AgIAAJwAAAAAAAAAAAAiwKsAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-18T05:06:49.46Z",
               "EditorCaption": ""
@@ -111,12 +113,7 @@
               "RelativeToolTip": "Assets\\GameManager.cs",
               "ViewState": "AgIAAGUAAAAAAAAAAAAkwOwAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-18T05:06:53.002Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2026-06-18T05:06:53.002Z"
             }
           ]
         }
