@@ -9,10 +9,11 @@ public class TeleportManager : MonoBehaviour
     {
         if (player != null && gameSpawnPoint != null)
         {
-            player.SetPositionAndRotation(
+            /*player.SetPositionAndRotation(
                 gameSpawnPoint.position,
                 gameSpawnPoint.rotation
-            );
+            );*/
+            player.position = gameSpawnPoint.position;
         }
     }
 

@@ -1411,7 +1411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &128871817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1688,7 +1688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &156757128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6257,7 +6257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &963232150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6352,7 +6352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &987175325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6378,7 +6378,7 @@ MonoBehaviour:
   maxKickPower: 12
   kickUpwardForce: 3.5
   softDribblePower: 3
-  invertJoystickForward: 0
+  invertJoystickForward: 1
   joystickDeadzone: 0.15
   rawRightThumbstick:
     m_Name: Raw Right Thumbstick
@@ -10027,7 +10027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1540698130
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10287,7 +10287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1572481657
 Transform:
   m_ObjectHideFlags: 0
@@ -10620,7 +10620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1616655938
 Transform:
   m_ObjectHideFlags: 0
@@ -12942,7 +12942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1921554307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12955,8 +12955,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b9dbd180b872d42a1999accfa6f023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  gameSpawnPoint: {fileID: 0}
+  player: {fileID: 128871824}
+  gameSpawnPoint: {fileID: 1572481657}
 --- !u!4 &1921554308
 Transform:
   m_ObjectHideFlags: 0
