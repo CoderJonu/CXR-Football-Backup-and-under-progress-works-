@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{3FFE3CA1-4F48-B4E3-2AD9-7C79C5591532}</ProjectGuid>
+    <ProjectGuid>{B78A7E9E-880E-EF1E-C606-E1F370C1BB0F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.XR.Management.Samples.Editor</AssemblyName>
@@ -992,7 +992,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.XR.Management.Samples.csproj">
-      <Project>{06EEA1F2-CD0D-2C51-761E-EDCD1D1A1858}</Project>
+      <Project>{5CE28963-6250-D441-A819-A97B66EBE568}</Project>
       <Name>Unity.XR.Management.Samples</Name>
     </ProjectReference>
   </ItemGroup>
