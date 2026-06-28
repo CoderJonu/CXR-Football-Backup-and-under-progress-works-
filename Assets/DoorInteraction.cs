@@ -6,9 +6,9 @@ public class DoorInteraction : MonoBehaviour
     public Transform insideSpawnPoint; // Drag THIS room's spawn point here
     public GameObject player;          // Drag your player here
 
-    [Header("Room UI Control")]
+    [Header("Room Number Customisation")]
+    public int roomNumber = 1;         // Set this to 1 for Room 1, and 2 for Room 2
     public GameObject lobbyCanvas;     // Drag your main lobby canvas here
-    public GameObject roomCanvas;      // Drag THIS room's canvas here (Timer, Goals, etc.)
 
     private bool isPlayerNearby = false;
     private bool isInRoom = false;
@@ -60,20 +60,19 @@ public class DoorInteraction : MonoBehaviour
 
         if (charController != null) charController.enabled = true;
 
-        // --- ROOM CANVAS CONTROL ---
-        // 1. Turn off the lobby screen so you can't see it anymore
+        // Hide the lobby canvas completely
         if (lobbyCanvas != null)
         {
             lobbyCanvas.SetActive(false);
         }
 
-        // 2. Turn on this specific room's screen (Timer, goals, etc.)
-        if (roomCanvas != null)
+        // Send the room number directly to the player script!
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        if (playerMovement != null)
         {
-            roomCanvas.SetActive(true);
+            playerMovement.InitializeRoomFunctionality(roomNumber);
         }
 
-        // Trigger this specific room's gameplay loop
-        Debug.Log(gameObject.name + " gameplay started!");
+        Debug.Log(gameObject.name + " entered! Initialized functionality for Room " + roomNumber);
     }
 }

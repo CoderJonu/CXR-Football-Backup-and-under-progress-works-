@@ -8,8 +8,8 @@ public class nGoalDetector : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Manager Found: " + gameManager);
         gameManager = Object.FindFirstObjectByType<nGameManager>();
+        Debug.Log("Manager Found: " + gameManager);
 
         // This makes sure the "Goal!" text is hidden the second the game runs
         if (goalTextUI != null)
@@ -27,6 +27,24 @@ public class nGoalDetector : MonoBehaviour
         {
             Debug.Log("GOAL SCORED!");
 
+            // --- 1. UPDATE ROOM 2 GOAL COUNTER ON PLAYER CANVAS ---
+            PlayerMovement player = Object.FindFirstObjectByType<PlayerMovement>();
+            if (player != null)
+            {
+                player.IncreaseRoomTwoGoalCount();
+            }
+
+            // --- 2. SWITCH 10 DEFENDER BOARDS TO THE NEXT BLUE LOCK PATTERN ---
+            if (DefensiveSystemManager.Instance != null)
+            {
+                DefensiveSystemManager.Instance.CycleDefensivePattern();
+            }
+            else
+            {
+                Debug.LogWarning("DefensiveSystemManager is missing from the scene! Make sure it is attached to an empty GameObject.");
+            }
+
+            // --- ORIGINAL GAME MANAGER CALLS ---
             if (gameManager != null)
             {
                 GameObject scoredBall = other.attachedRigidbody != null
@@ -38,11 +56,11 @@ public class nGoalDetector : MonoBehaviour
                 Debug.Log("GoalScored() called successfully.");
             }
 
+            // --- ORIGINAL CELEBRATION TEXT CONTROL ---
             if (goalTextUI != null)
             {
                 Debug.Log("Displaying GOAL text.");
 
-                goalTextUI.SetActive(true);
                 goalTextUI.SetActive(true);
                 Debug.Log("Goal text active state: " + goalTextUI.activeSelf);
 
@@ -54,7 +72,6 @@ public class nGoalDetector : MonoBehaviour
             }
         }
     }
-
 
     void HideGoalText()
     {

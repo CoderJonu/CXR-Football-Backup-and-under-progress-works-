@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro; // Added for TextMeshPro UI Support
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -31,12 +32,25 @@ public class PlayerMovement : MonoBehaviour
     public bool invertJoystickForward = false;
     public float joystickDeadzone = 0.15f;
 
+    [Header("Room Functionality Layout")]
+    public GameObject roomTwoCanvas;       // Drag your Room 2 Overlay UI Canvas here
+    public TextMeshProUGUI timerText;      // Drag your UI Timer Text object here
+    public TextMeshProUGUI goalCounterText; // Drag your UI Goal Text object here
+    public float roomTwoTimeLimit = 60f;   // Set allowed time limit
+    public int targetGoalsToWin = 5;       // Required goals to finish
+
     private Vector3 currentVelocity;
     private Vector3 verticalVelocity;
     private Vector3 lastFootPosition;
     private float physicalFootSpeed;
     private float currentTurnSpeed;
     private GameManager gameManager;
+
+    // Room tracking systems
+    private int activeRoom = 0;            // 0 = Lobby/Freeplay, 1 = Room 1, 2 = Room 2
+    private float currentRoomTimer;
+    private bool isTimerRunning = false;
+    private int currentGoalsScored = 0;
 
     public InputAction rawRightThumbstick;
     public InputAction rawRightTrigger;
@@ -87,10 +101,32 @@ public class PlayerMovement : MonoBehaviour
             lastFootPosition = rightFootController.position;
 
         gameManager = Object.FindFirstObjectByType<GameManager>();
+
+        // Ensure Room 2 UI features are hidden when spawning at startup
+        if (roomTwoCanvas != null)
+            roomTwoCanvas.SetActive(false);
     }
 
     void Update()
     {
+        // --- ROOM TIMER LOOP INTEGRATION ---
+        if (activeRoom == 2 && isTimerRunning)
+        {
+            if (currentRoomTimer > 0)
+            {
+                currentRoomTimer -= Time.deltaTime;
+                UpdateRoomTwoDisplay();
+            }
+            else
+            {
+                currentRoomTimer = 0;
+                isTimerRunning = false;
+                if (timerText != null) timerText.text = "Time's Up!";
+                OnRoomTwoTimeExpired();
+            }
+        }
+
+        // --- ORIGINAL MOVEMENT MECHANICS LOOP ---
         if (rightFootController != null && Time.deltaTime > 0f)
         {
             Vector3 footDisplacement = rightFootController.position - lastFootPosition;
@@ -103,32 +139,12 @@ public class PlayerMovement : MonoBehaviour
 
         float forwardInput = ApplyDeadzone(invertJoystickForward ? -rightJoystick.y : rightJoystick.y);
         float turnInput = ApplyDeadzone(rightJoystick.x);
-        bool keyboardMoving = false;
 
         // Keyboard fallback
-        if (Input.GetKey(KeyCode.W))
-        {
-            forwardInput = 1f;
-            keyboardMoving = true;
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            forwardInput = -1f;
-            keyboardMoving = true;
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            turnInput = -1f;
-            keyboardMoving = true;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            turnInput = 1f;
-            keyboardMoving = true;
-        }
+        if (Input.GetKey(KeyCode.W)) forwardInput = 1f;
+        if (Input.GetKey(KeyCode.S)) forwardInput = -1f;
+        if (Input.GetKey(KeyCode.A)) turnInput = -1f;
+        if (Input.GetKey(KeyCode.D)) turnInput = 1f;
 
         IsPhysicallyMoving = Mathf.Abs(forwardInput) > 0f;
 
@@ -167,22 +183,15 @@ public class PlayerMovement : MonoBehaviour
             );
         }
 
-        controller.Move(
-            currentVelocity * Time.deltaTime
-        );
+        controller.Move(currentVelocity * Time.deltaTime);
 
-        if (controller.isGrounded &&
-            verticalVelocity.y < 0)
+        if (controller.isGrounded && verticalVelocity.y < 0)
         {
             verticalVelocity.y = -2f;
         }
 
-        verticalVelocity.y +=
-            gravity * Time.deltaTime;
-
-        controller.Move(
-            verticalVelocity * Time.deltaTime
-        );
+        verticalVelocity.y += gravity * Time.deltaTime;
+        controller.Move(verticalVelocity * Time.deltaTime);
     }
 
     float ApplyDeadzone(float value)
@@ -232,5 +241,69 @@ public class PlayerMovement : MonoBehaviour
             pushDir.y = 0f;
             ballBody.AddForce(pushDir.normalized * softDribblePower, ForceMode.Impulse);
         }
+    }
+
+    // --- NEW CORE ROOM INTERFACE FUNCTIONS ---
+
+    // Triggered directly from your working DoorInteraction layout code setup
+    public void InitializeRoomFunctionality(int roomNumber)
+    {
+        activeRoom = roomNumber;
+
+        if (activeRoom == 1)
+        {
+            isTimerRunning = false;
+            if (roomTwoCanvas != null) roomTwoCanvas.SetActive(false);
+            Debug.Log("Entered Room 1: Free play state initiated.");
+        }
+        else if (activeRoom == 2)
+        {
+            currentGoalsScored = 0;
+            currentRoomTimer = roomTwoTimeLimit;
+            isTimerRunning = true;
+
+            if (roomTwoCanvas != null)
+                roomTwoCanvas.SetActive(true);
+
+            UpdateRoomTwoDisplay();
+            Debug.Log("Entered Room 2: Countdown and goal systems initialized.");
+        }
+    }
+
+    // Call this public method whenever your scoring logic detects a goal event!
+    public void IncreaseRoomTwoGoalCount()
+    {
+        if (activeRoom != 2 || !isTimerRunning) return;
+
+        currentGoalsScored++;
+        UpdateRoomTwoDisplay();
+
+        if (currentGoalsScored >= targetGoalsToWin)
+        {
+            isTimerRunning = false;
+            OnRoomTwoChallengeCompleted();
+        }
+    }
+
+    void UpdateRoomTwoDisplay()
+    {
+        if (timerText != null)
+            timerText.text = "Time Left: " + Mathf.CeilToInt(currentRoomTimer) + "s";
+
+        if (goalCounterText != null)
+            goalCounterText.text = "Goals: " + currentGoalsScored + " / " + targetGoalsToWin;
+    }
+
+    void OnRoomTwoTimeExpired()
+    {
+        Debug.Log("Challenge Failed! Time limit reached.");
+        // Add failure conditions here (e.g., reset room ball positions, popup panel)
+    }
+
+    void OnRoomTwoChallengeCompleted()
+    {
+        Debug.Log("Challenge Successful! Target goals secured.");
+        if (goalCounterText != null) goalCounterText.text = "Victory!";
+        // Add completion features here (e.g., unlock exit door barriers, play audio)
     }
 }
