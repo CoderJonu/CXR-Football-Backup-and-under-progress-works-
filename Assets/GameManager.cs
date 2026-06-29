@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [Header("Match Settings")]
     public GameObject ballPrefab; // Put your clean ball asset template here
     public Vector3 kickOffPosition; // Coordinates where the ball spawns
+    public bool freePlayMode = true;
 
     private const float MatchDuration = 240f; // 4 minutes total
     private const int GoalsToWin = 10;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (freePlayMode) return;
         if (isGameOver) return;
 
         // Run down the match timer clock
@@ -64,10 +66,12 @@ public class GameManager : MonoBehaviour
         RemoveBall(scoredBall);
 
         goalsScored++;
-        goalsRemaining--; // Reduce targets left
+        if (!freePlayMode)
+            goalsRemaining--; // Reduce targets left
+
         UpdateUIDisplays();
 
-        if (goalsRemaining <= 0)
+        if (!freePlayMode && goalsRemaining <= 0)
         {
             EndGame(true); // Won the game
         }
@@ -136,10 +140,18 @@ public class GameManager : MonoBehaviour
         int seconds = Mathf.FloorToInt(timeRemaining % 60);
 
         if (timerText != null)
-            timerText.text = string.Format("Time Left: {0:00}:{1:00}", minutes, seconds);
+        {
+            timerText.gameObject.SetActive(!freePlayMode);
+            if (!freePlayMode)
+                timerText.text = string.Format("Time Left: {0:00}:{1:00}", minutes, seconds);
+        }
 
         if (goalsLeftText != null)
-            goalsLeftText.text = "Goals Needed: " + goalsRemaining;
+        {
+            goalsLeftText.gameObject.SetActive(!freePlayMode);
+            if (!freePlayMode)
+                goalsLeftText.text = "Goals Needed: " + goalsRemaining;
+        }
 
         if (accuracyText == null)
             accuracyText = CreateAccuracyText();
@@ -151,7 +163,7 @@ public class GameManager : MonoBehaviour
                 : 0f;
 
             accuracyText.text = string.Format(
-                "Shots: {0}  Goals: {1}  Accuracy: {2:0}%",
+                "Shots Taken: {0}  Goals Scored: {1}  Accuracy: {2:0}%",
                 shotsTaken,
                 goalsScored,
                 accuracy

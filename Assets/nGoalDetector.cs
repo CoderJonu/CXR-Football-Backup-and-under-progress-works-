@@ -23,7 +23,9 @@ public class nGoalDetector : MonoBehaviour
         // This will print the name of ANY object that touches the goal
         Debug.Log("Something hit the goal: " + other.gameObject.name);
 
-        if (other.CompareTag("nBall"))
+        GameObject scoredBall = GetScoredBall(other);
+
+        if (scoredBall != null)
         {
             Debug.Log("GOAL SCORED!");
 
@@ -45,12 +47,11 @@ public class nGoalDetector : MonoBehaviour
             }
 
             // --- ORIGINAL GAME MANAGER CALLS ---
+            if (gameManager == null)
+                gameManager = Object.FindFirstObjectByType<nGameManager>();
+
             if (gameManager != null)
             {
-                GameObject scoredBall = other.attachedRigidbody != null
-                    ? other.attachedRigidbody.gameObject
-                    : other.gameObject;
-
                 gameManager.GoalScored(scoredBall);
 
                 Debug.Log("GoalScored() called successfully.");
@@ -71,6 +72,20 @@ public class nGoalDetector : MonoBehaviour
                 Debug.LogWarning("goalTextUI is NOT assigned!");
             }
         }
+    }
+
+    GameObject GetScoredBall(Collider other)
+    {
+        if (other.CompareTag("nBall"))
+            return other.attachedRigidbody != null
+                ? other.attachedRigidbody.gameObject
+                : other.gameObject;
+
+        if (other.attachedRigidbody != null && other.attachedRigidbody.GetComponent<nBall>() != null)
+            return other.attachedRigidbody.gameObject;
+
+        nBall ball = other.GetComponentInParent<nBall>();
+        return ball != null ? ball.gameObject : null;
     }
 
     void HideGoalText()

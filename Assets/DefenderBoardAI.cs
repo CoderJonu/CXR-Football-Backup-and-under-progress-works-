@@ -15,6 +15,11 @@ public class DefenderBoardAI : MonoBehaviour
     public float forwardCreepSpeed = 0.4f;   // Slow pressure speed approaching the player/ball
     public float maxCreepDistanceZ = 8f;     // Maximum distance allowed to march forward down the field
 
+    [Header("Interception Rotation")]
+    public float interceptionDistance = 3f;
+    public float rotationSpeed = 540f;
+    public float closeBallRotationOffset = 90f;
+
     private Transform currentMarkerTarget;
     private Transform ballTransform;
     private float calculatedZOffset = 0f;
@@ -50,6 +55,12 @@ public class DefenderBoardAI : MonoBehaviour
         calculatedZOffset = 0f;
     }
 
+    public void ForceRefreshBallReference()
+    {
+        ballTransform = null;
+        LocateBallReference();
+    }
+
     void Update()
     {
         // BUG FIX: Intelligently auto-find the new ball if it gets reset after a goal
@@ -81,9 +92,23 @@ public class DefenderBoardAI : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, dynamicTargetPosition, shiftSlideSpeed * Time.deltaTime);
 
-        // 3. LOOK TARGET DIRECTION: Always rotate the board faces toward the ball
-        Vector3 lookTarget = new Vector3(ballTransform.position.x, transform.position.y, ballTransform.position.z);
-        transform.LookAt(lookTarget);
+        // 3. ROTATION: Track the ball, then turn sideways up close to block the shot lane
+        Vector3 lookDirection = ballTransform.position - transform.position;
+        lookDirection.y = 0f;
+
+        if (lookDirection.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(lookDirection.normalized, Vector3.up);
+
+            if (lookDirection.magnitude <= interceptionDistance)
+                targetRotation *= Quaternion.Euler(0f, closeBallRotationOffset, 0f);
+
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
     }
 
     void LocateBallReference()
@@ -91,6 +116,12 @@ public class DefenderBoardAI : MonoBehaviour
         // VR SAFE FIX: Search for your ball using the exact name "nBall" or tag "nBall"
         GameObject foundBall = GameObject.Find("nBall");
         if (foundBall == null) foundBall = GameObject.FindWithTag("nBall");
+        if (foundBall == null)
+        {
+            nBall activeBall = Object.FindFirstObjectByType<nBall>();
+            if (activeBall != null)
+                foundBall = activeBall.gameObject;
+        }
 
         if (foundBall != null)
         {

@@ -7,6 +7,13 @@ public class PlayerTransformManager : MonoBehaviour
     public GameObject room1Player;
     public GameObject room2Player;
 
+    private nGameManager roomTwoGameManager;
+
+    void Awake()
+    {
+        roomTwoGameManager = Object.FindFirstObjectByType<nGameManager>();
+    }
+
     void Start()
     {
         lobbyPlayer.SetActive(true);
@@ -20,6 +27,9 @@ public class PlayerTransformManager : MonoBehaviour
         room1Player.SetActive(true);
         room2Player.SetActive(false);
 
+        if (roomTwoGameManager != null)
+            roomTwoGameManager.EndRoomTwoChallenge();
+
         Debug.Log("Entered Room 1");
     }
 
@@ -29,6 +39,9 @@ public class PlayerTransformManager : MonoBehaviour
         room1Player.SetActive(false);
         room2Player.SetActive(true);
 
+        if (roomTwoGameManager != null)
+            roomTwoGameManager.BeginRoomTwoChallenge();
+
         Debug.Log("Entered Room 2");
     }
 
@@ -37,6 +50,9 @@ public class PlayerTransformManager : MonoBehaviour
         lobbyPlayer.SetActive(true);
         room1Player.SetActive(false);
         room2Player.SetActive(false);
+
+        if (roomTwoGameManager != null)
+            roomTwoGameManager.EndRoomTwoChallenge();
 
         Debug.Log("Returned to Lobby");
     }

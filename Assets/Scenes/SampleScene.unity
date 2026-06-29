@@ -4202,6 +4202,7 @@ MonoBehaviour:
   accuracyText: {fileID: 0}
   ballPrefab: {fileID: 3437825152090215401, guid: 790bd60dfbfbf9f45b19b4c120b128c8, type: 3}
   kickOffPosition: {x: 0, y: 0, z: 0}
+  freePlayMode: 1
 --- !u!4 &507790705
 Transform:
   m_ObjectHideFlags: 0
@@ -6389,7 +6390,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 04:00
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12606,6 +12607,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grassFriction: 0.6
   resetHeightLimit: -5
+  goalCenter: {fileID: 0}
+  defenderClearPower: 12
+  defenderClearUpwardForce: 1.2
+  defenderClearSidePower: 3
+  defenderClearCooldown: 0.25
 --- !u!1 &1566604456
 GameObject:
   m_ObjectHideFlags: 0

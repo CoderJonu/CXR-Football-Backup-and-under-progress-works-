@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private float physicalFootSpeed;
     private float currentTurnSpeed;
     private GameManager gameManager;
+    private nGameManager roomTwoGameManager;
 
     // Room tracking systems
     private int activeRoom = 0;            // 0 = Lobby/Freeplay, 1 = Room 1, 2 = Room 2
@@ -101,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
             lastFootPosition = rightFootController.position;
 
         gameManager = Object.FindFirstObjectByType<GameManager>();
+        roomTwoGameManager = Object.FindFirstObjectByType<nGameManager>();
 
         // Ensure Room 2 UI features are hidden when spawning at startup
         if (roomTwoCanvas != null)
@@ -110,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // --- ROOM TIMER LOOP INTEGRATION ---
-        if (activeRoom == 2 && isTimerRunning)
+        if (activeRoom == 2 && isTimerRunning && roomTwoGameManager == null)
         {
             if (currentRoomTimer > 0)
             {
@@ -219,8 +221,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (isIntentionalKick)
         {
-            if (gameManager != null)
+            if (gameManager != null && ballBody.GetComponent<ball>() != null)
                 gameManager.RegisterShot(ballBody.gameObject);
+
+            if (roomTwoGameManager != null && ballBody.GetComponent<nBall>() != null)
+                roomTwoGameManager.RegisterShot(ballBody.gameObject);
 
             pushDir.y = kickUpwardForce / maxKickPower;
 
@@ -254,25 +259,45 @@ public class PlayerMovement : MonoBehaviour
         {
             isTimerRunning = false;
             if (roomTwoCanvas != null) roomTwoCanvas.SetActive(false);
+            if (roomTwoGameManager != null) roomTwoGameManager.EndRoomTwoChallenge();
             Debug.Log("Entered Room 1: Free play state initiated.");
         }
         else if (activeRoom == 2)
         {
             currentGoalsScored = 0;
             currentRoomTimer = roomTwoTimeLimit;
-            isTimerRunning = true;
+            isTimerRunning = roomTwoGameManager == null;
 
             if (roomTwoCanvas != null)
                 roomTwoCanvas.SetActive(true);
 
-            UpdateRoomTwoDisplay();
+            if (roomTwoGameManager != null)
+                roomTwoGameManager.BeginRoomTwoChallenge();
+            else
+                UpdateRoomTwoDisplay();
+
             Debug.Log("Entered Room 2: Countdown and goal systems initialized.");
+        }
+        else
+        {
+            isTimerRunning = false;
+            currentGoalsScored = 0;
+            currentRoomTimer = 0f;
+
+            if (roomTwoCanvas != null)
+                roomTwoCanvas.SetActive(false);
+
+            if (roomTwoGameManager != null)
+                roomTwoGameManager.EndRoomTwoChallenge();
+
+            Debug.Log("Returned to lobby/freeplay state.");
         }
     }
 
     // Call this public method whenever your scoring logic detects a goal event!
     public void IncreaseRoomTwoGoalCount()
     {
+        if (roomTwoGameManager != null) return;
         if (activeRoom != 2 || !isTimerRunning) return;
 
         currentGoalsScored++;

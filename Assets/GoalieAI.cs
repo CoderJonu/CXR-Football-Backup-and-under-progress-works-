@@ -24,6 +24,13 @@ public class GoalieAI : MonoBehaviour
         LocateBallReference();
     }
 
+    public void ForceRefreshBallReference()
+    {
+        ballTransform = null;
+        ballRb = null;
+        LocateBallReference();
+    }
+
     void Update()
     {
         // BUG FIX: Uses the custom inspector string to auto-find the correct ball when it resets
@@ -58,6 +65,12 @@ public class GoalieAI : MonoBehaviour
         // Uses the customizable string field to dynamically find the correct ball object
         GameObject foundBall = GameObject.Find(ballNameAndTag);
         if (foundBall == null) foundBall = GameObject.FindWithTag(ballNameAndTag);
+        if (foundBall == null)
+        {
+            nBall activeBall = Object.FindFirstObjectByType<nBall>();
+            if (activeBall != null)
+                foundBall = activeBall.gameObject;
+        }
 
         if (foundBall != null)
         {
